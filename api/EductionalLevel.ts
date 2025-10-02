@@ -5,14 +5,16 @@ import { serviceEducationalLevel } from "../services/eductionalLevel"
 
 export const routerEductionalLevel = Router()
 
+const allowedKeys = new Set(["name", "monthFees", "bookingFees", "materialFees", "capacityMembers"])
+
 routerEductionalLevel.route("/")
  //.get()
-    .post(bodyFilter(new Set(["name", "monthFees", "bookingFees", "materialFees", "capacityMembers"])),serviceEducationalLevel.create())
+    .post(bodyFilter(allowedKeys),serviceEducationalLevel.create())
     .patch(serviceEducationalLevel.reset())
     .delete(serviceEducationalLevel.deleteAll())
 
 
 routerEductionalLevel.route("/:id")
     .get(serviceEducationalLevel.getOne())
-    .patch(serviceEducationalLevel.updateOne())
+    .patch(bodyFilter(allowedKeys),serviceEducationalLevel.updateOne())
     .delete(serviceEducationalLevel.deleteOne())                                                                                                                            
