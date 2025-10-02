@@ -7,5 +7,5 @@ export const routerEductionalLevel = Router()
 
 routerEductionalLevel.route("/")
  //   .get()
-    .post(bodyFilter(new Set(["month", "less"])),
-    RefactorServiceHandler.create())
+    .post(bodyFilter(new Set(["name", "monthFees", "bookingFees", "materialFees", "capacityMembers"])),
+    RefactorServiceHandler.create("educationalStage"))
