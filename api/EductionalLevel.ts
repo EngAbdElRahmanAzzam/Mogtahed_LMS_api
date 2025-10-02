@@ -6,9 +6,12 @@ import { bodyFilter } from "../middlewares/reqBodyFilter"
 export const routerEductionalLevel = Router()
 
 routerEductionalLevel.route("/")
- //   .get()
+ //.get()
+ .delete(RefactorServiceHandler.deleteAll("educationalStage"))
     .post(bodyFilter(new Set(["name", "monthFees", "bookingFees", "materialFees", "capacityMembers"])),
     RefactorServiceHandler.create("educationalStage"))
 
 routerEductionalLevel.route("/:id")
-    .delete(RefactorServiceHandler.delete('educationalStage'))
+    .get(RefactorServiceHandler.getOne('educationalStage'))
+    .patch(RefactorServiceHandler.updateOne("educationalStage"))
+    .delete(RefactorServiceHandler.deleteOne('educationalStage'))
