@@ -1,6 +1,7 @@
 import server, { NextFunction, Request, Response, json } from "express"
 import morgan from "morgan"
 import { APP_PORT } from "./config"
+import { routerEductionalLevel } from "./api/EductionalLevel"
 
 
 const app = server()
@@ -9,6 +10,7 @@ const app = server()
 app.use(morgan("dev"))
 app.use(json())
 
+app.use("/level",routerEductionalLevel)
 
 app.use((error:any , req: Request, res: Response, next: NextFunction)=>{
     res.status(500).json({error})
