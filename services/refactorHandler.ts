@@ -1,5 +1,5 @@
 //core
-import {Request , Response, NextFunction} from "express"
+import {Request , Response} from "express"
 
 //third-party
 import expressAsyncHandler from "express-async-handler";
@@ -10,26 +10,31 @@ import { PrismaClientConfig } from "../config/prisma.config";
 
 
 export class RefactorServiceHandler{
+    private model: keyof PrismaClient;
     private static prisma = PrismaClientConfig.getInstance()
 
-    static create(model:keyof PrismaClient){
+    constructor(model:keyof PrismaClient){
+        this.model = model;
+    }
+
+    create(){
         return expressAsyncHandler(
 
-            async function (req:Request , res:Response){
-                const data  = await (RefactorServiceHandler.prisma[model] as any).create({data:req.body})
+            async (req:Request , res:Response) => {
+                const data  = await (RefactorServiceHandler.prisma[this.model] as any).create({data:req.body})
                 res.status(201).json({data})
             }
 
         )
     }
 
-    static getOne(model:keyof PrismaClient){
+    getOne(){
 
         return expressAsyncHandler(
 
-            async function (req:Request , res:Response){
+            async (req:Request , res:Response) => {
                 const id = +req.params.id
-                const data = await (RefactorServiceHandler.prisma[model] as any).findUnique({where:{id}})
+                const data = await (RefactorServiceHandler.prisma[this.model] as any).findUnique({where:{id}})
                 if(data)
                 {
                     res.status(200).json({data})
@@ -42,13 +47,13 @@ export class RefactorServiceHandler{
 
     }
 
-    static updateOne(model:keyof PrismaClient){
+    updateOne(){
 
         return expressAsyncHandler(
 
-            async function (req:Request , res:Response){
+            async (req:Request , res:Response) => {
                 const id = +req.params.id
-                const data = await (RefactorServiceHandler.prisma[model] as any).update({where:{id} , data:req.body})
+                const data = await (RefactorServiceHandler.prisma[this.model] as any).update({where:{id} , data:req.body})
                 res.status(200).json({data})
             }
 
@@ -56,10 +61,10 @@ export class RefactorServiceHandler{
 
     }
 
-    static deleteAll(model:keyof PrismaClient){
+    deleteAll(){
         return expressAsyncHandler(
 
-            async function(req:Request, res:Response){
+            async (req:Request, res:Response) =>{
                 const data = await (RefactorServiceHandler.prisma.educationalStage).deleteMany()
                 res.status(204).json({msg:"ok"})
             }
@@ -67,12 +72,12 @@ export class RefactorServiceHandler{
         )
     }
 
-    static deleteOne(model:keyof PrismaClient){
+    deleteOne(){
         return expressAsyncHandler(
 
-            async function(req:Request, res:Response){
+            async (req:Request, res:Response) =>{
                 const id = +req.params.id
-                const data = await (RefactorServiceHandler.prisma[model] as any).delete({where:{id}})
+                const data = await (RefactorServiceHandler.prisma[this.model] as any).delete({where:{id}})
                 res.status(204).json({data})
             }
 

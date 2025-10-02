@@ -1,17 +1,17 @@
 //core
 import {Router} from "express"
-import { RefactorServiceHandler } from "../services/refactorHandler"
 import { bodyFilter } from "../middlewares/reqBodyFilter"
+import { serviceEducationalLevel } from "../services/eductionalLevel"
 
 export const routerEductionalLevel = Router()
 
 routerEductionalLevel.route("/")
  //.get()
- .delete(RefactorServiceHandler.deleteAll("educationalStage"))
-    .post(bodyFilter(new Set(["name", "monthFees", "bookingFees", "materialFees", "capacityMembers"])),
-    RefactorServiceHandler.create("educationalStage"))
+    .post(bodyFilter(new Set(["name", "monthFees", "bookingFees", "materialFees", "capacityMembers"])),serviceEducationalLevel.create())
+    .delete(serviceEducationalLevel.deleteAll())
+
 
 routerEductionalLevel.route("/:id")
-    .get(RefactorServiceHandler.getOne('educationalStage'))
-    .patch(RefactorServiceHandler.updateOne("educationalStage"))
-    .delete(RefactorServiceHandler.deleteOne('educationalStage'))
+    .get(serviceEducationalLevel.getOne())
+    .patch(serviceEducationalLevel.updateOne())
+    .delete(serviceEducationalLevel.deleteOne())
