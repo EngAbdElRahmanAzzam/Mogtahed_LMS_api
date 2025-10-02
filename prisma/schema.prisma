@@ -1,0 +1,36 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model EducationalStage{
+  id Int @id @default(autoincrement())
+  name String @unique
+  monthFees Int
+  bookingFees Int
+  materialFees Int
+  //actualMembers Int @default(0)
+  capacityMembers Int @default(150)
+  groups Group[]
+}
+
+model Group{
+  id String @id @default(dbgenerated("uuid_generate_v7()")) @db.Uuid
+  name String @unique
+  days String
+  time String
+
+  //actualMembers Int @default(0)
+  monthFees Int?
+  capacityMembers Int?
+
+  educationStageId Int
+  educationStage EducationalStage @relation(fields: [educationStageId] ,references: [id], onUpdate:Cascade ,onDelete: Cascade)
+
+  
+}
+
