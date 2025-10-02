@@ -28,6 +28,26 @@ export class RefactorServiceHandler{
         )
     }
 
+    getAll(){
+        return expressAsyncHandler(
+
+            async (req:Request , res:Response) => {
+                const page = req.query.p ?? 1
+                const take = req.query.l ?? 10
+                const skip = +take * (+page-1)
+
+                const data = await (RefactorServiceHandler.prisma.educationalStage).findMany({skip, take:+take})
+                if(data)
+                {
+                    res.status(200).json({length:data.length, data})
+                    return
+                }
+                res.status(404).json({error:`Not Found Elements`})
+            }
+
+        )
+    }
+
     getOne(){
 
         return expressAsyncHandler(

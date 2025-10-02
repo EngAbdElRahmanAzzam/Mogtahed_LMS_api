@@ -8,7 +8,7 @@ export const routerEductionalLevel = Router()
 const allowedKeys = new Set(["name", "monthFees", "bookingFees", "materialFees", "capacityMembers"])
 
 routerEductionalLevel.route("/")
- //.get()
+    .get(serviceEducationalLevel.getAll())
     .post(bodyFilter(allowedKeys),serviceEducationalLevel.create())
     .patch(serviceEducationalLevel.reset())
     .delete(serviceEducationalLevel.deleteAll())
