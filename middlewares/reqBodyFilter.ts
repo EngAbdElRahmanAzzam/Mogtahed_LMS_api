@@ -5,7 +5,9 @@ import {Request , Response, NextFunction} from "express"
 import expressAsyncHandler from "express-async-handler";
 
 export function bodyFilter(keysList:Set<string>){
+
     return expressAsyncHandler(
+
         (req:Request, res:Response, next:NextFunction) => {
             let filteredBody :Record<string, string> = {}
 
@@ -22,5 +24,7 @@ export function bodyFilter(keysList:Set<string>){
             req.body = filteredBody
             next()            
         }
+        
     )
+
 } 
