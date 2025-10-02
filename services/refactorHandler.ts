@@ -10,8 +10,8 @@ import { PrismaClientConfig } from "../config/prisma.config";
 
 
 export class RefactorServiceHandler{
-    private model: keyof PrismaClient;
-    private static prisma = PrismaClientConfig.getInstance()
+    model: keyof PrismaClient;
+    static prisma = PrismaClientConfig.getInstance()
 
     constructor(model:keyof PrismaClient){
         this.model = model;
