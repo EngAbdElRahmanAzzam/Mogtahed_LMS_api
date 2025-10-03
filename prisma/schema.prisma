@@ -29,8 +29,6 @@ model Group{
   capacityMembers Int?
 
   educationStageId Int
-  educationStage EducationalStage @relation(fields: [educationStageId] ,references: [id], onUpdate:Cascade ,onDelete: Cascade)
-
-  
+  educationStage EducationalStage @relation(fields: [educationStageId] ,references: [id], onUpdate:Cascade ,onDelete: Cascade)  
 }
 
