@@ -10,9 +10,9 @@ const allowedKeysUpdate = new Set(commonAllowedKeys)
 
 
 routerGroup.route("/")
-    .get(serviceGroup.getAll())
-    .post(bodyFilter(allowedKeysCreate),serviceGroup.create())
+    .get(serviceGroup.getAll)
+    .post(bodyFilter(allowedKeysCreate),serviceGroup.create)
 
 routerGroup.route("/:id")
-    .patch(bodyFilter(allowedKeysUpdate),serviceGroup.updateOne())
-    .delete(serviceGroup.deleteOne())                                                                                                                            
+    .patch(bodyFilter(allowedKeysUpdate),serviceGroup.updateOne)
+    .delete(serviceGroup.deleteOne)                                                                                                                            
