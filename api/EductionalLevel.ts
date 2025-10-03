@@ -2,6 +2,7 @@
 import {Router} from "express"
 import { bodyFilter } from "../middlewares/reqBodyFilter"
 import { serviceEducationalLevel } from "../services/eductionalLevel"
+import { RefactorValidatorHandler } from "../validators/refactorValidator"
 
 export const routerEductionalLevel = Router()
 
@@ -15,6 +16,6 @@ routerEductionalLevel.route("/")
 
 
 routerEductionalLevel.route("/:id")
-    .get(serviceEducationalLevel.getOne)
+    .get(RefactorValidatorHandler.getOne,serviceEducationalLevel.getOne)
     .patch(bodyFilter(allowedKeys),serviceEducationalLevel.updateOne)
-    .delete(serviceEducationalLevel.deleteOne)                                                                                                                            
+    .delete(RefactorValidatorHandler.deleteOne("educationalStage"),serviceEducationalLevel.deleteOne)                                                                                                                            

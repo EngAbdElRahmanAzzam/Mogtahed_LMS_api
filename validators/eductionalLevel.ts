@@ -1,6 +1,6 @@
 import {body} from "express-validator"
 import { catchErrorValidator } from "../middlewares/validator"
-import { CustomValidation, ErrorMsg } from "."
+import { CustomValidation, ErrorMsg } from "./config.validator"
 
 const entity = "Eduactional Stage"
 
