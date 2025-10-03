@@ -2,6 +2,7 @@
 import {Router} from "express"
 import { bodyFilter } from "../middlewares/reqBodyFilter"
 import { serviceGroup } from "../services/group"
+import { RefactorValidatorHandler } from "../validators/refactorValidator"
 
 export const routerGroup = Router()
 const commonAllowedKeys = ["name", "days", "time", "materialFees", "capacityMembers"]
@@ -15,4 +16,4 @@ routerGroup.route("/")
 
 routerGroup.route("/:id")
     .patch(bodyFilter(allowedKeysUpdate),serviceGroup.updateOne)
-    .delete(serviceGroup.deleteOne)                                                                                                                            
+    .delete(RefactorValidatorHandler.deleteOne("group"),serviceGroup.deleteOne)                                                                                                                            

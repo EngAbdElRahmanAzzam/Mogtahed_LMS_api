@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 export class RefactorValidatorHandler{
     private static UUIDv7_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-    static helperUUIDV7 = (val:string) => {
+    private static helperUUIDV7 = (val:string) => {
         if(!RefactorValidatorHandler.UUIDv7_REGEX.test(val))
             throw new Error("Not Valid Id")
         return true
